@@ -1,0 +1,14 @@
+.news {
+    margin-top: 100px;
+}
+.news > section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+}
+.news > section > article {
+    height: 350px;
+    width: 300px;
+    color: rgb(198, 196, 196);
+    background-color: rgb(54, 52, 52);
+}
