@@ -6,7 +6,7 @@ export const News = () => {
   return (
      <>
         <section className="news">
-            <header><h1>Новости сайта:</h1></header>
+            <header><h1 style={{color: "white"}}>Новости сайта:</h1></header>
             <section>
                 <article>
                     <h3>*****</h3>

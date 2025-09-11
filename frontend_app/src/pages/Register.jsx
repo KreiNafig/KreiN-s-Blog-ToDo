@@ -1,7 +1,10 @@
 import React from 'react'
+import { RegisteComp } from '../components/Auth/RegisterComp'
 
 export const Register = () => {
   return (
-    <div>Register</div>
+    <>
+      <RegisteComp />
+    </>
   )
 }

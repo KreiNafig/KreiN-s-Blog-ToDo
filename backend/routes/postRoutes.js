@@ -1,17 +1,28 @@
 import express from "express";
-import { protect } from "../middleware/authMiddleware.js";
-import {
-  getMyPosts, getPostById, createPost, updatePost, deletePost
-} from "../controllers/postController.js";
+import { db } from "../db.js";
 
 const router = express.Router();
 
-router.use(protect);
+// Получить все посты
+router.get("/", async (req, res) => {
+  const posts = await db.all(
+    `SELECT posts.id, posts.title, posts.content, posts.createdAt, users.username as author
+     FROM posts
+     JOIN users ON posts.authorId = users.id`
+  );
+  res.json(posts);
+});
 
-router.get("/",      getMyPosts);
-router.get("/:id",   getPostById);
-router.post("/",     createPost);
-router.put("/:id",   updatePost);
-router.delete("/:id", deletePost);
+// Создать пост
+router.post("/", async (req, res) => {
+  const { title, content, authorId } = req.body;
+
+  await db.run(
+    "INSERT INTO posts (title, content, authorId) VALUES (?, ?, ?)",
+    [title, content, authorId]
+  );
+
+  res.json({ message: "Post created!" });
+});
 
 export default router;

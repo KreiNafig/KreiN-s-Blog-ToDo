@@ -4,6 +4,8 @@ import "./index.css"
 import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { Posts } from "./pages/Posts";
+import {Todo} from './pages/Todo'
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HeaderOutlet />}>
           <Route index element={<Home />} />
+          <Route path="todo" element={<Todo />} />
+          <Route path="posts" element={<Posts/>} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
