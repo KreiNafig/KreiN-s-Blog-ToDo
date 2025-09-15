@@ -1,14 +1,16 @@
-.news {
-    margin-top: 100px;
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
-.news > section {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 25px;
+.news-card {
+  background-color: #161b22;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  transition: background-color 0.2s, border-color 0.2s;
 }
-.news > section > article {
-    height: 350px;
-    width: 300px;
-    color: rgb(198, 196, 196);
-    background-color: rgb(54, 52, 52);
+.news-card:hover {
+  background-color: #1c2128;
+  border-color: rgba(240, 246, 252, 0.3);
 }

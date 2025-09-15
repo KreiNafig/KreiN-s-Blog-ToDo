@@ -1,31 +1,30 @@
 import React from 'react'
 import "./posts.css"
-import { useGetPostsQuery } from '../../api/postApi'
+import { useDeletePostMutation, useGetPostsQuery } from '../../api/postApi'
 import { Link } from 'react-router-dom'
+import { useAuthMeQuery } from '../../api/authApi'
 
 export const PostsComp = () => {
-    // const {data} = useGetPostsQuery()
-    const data = [{
-      id: 1,
-      title: 'hello',
-      description: 'dsf',
-      author: 'krein',
-      comments: [],
-      data: Date.now()
-    }]
+    const {data} = useGetPostsQuery()
+    const {data: user} = useAuthMeQuery()
+    const [deletePost] = useDeletePostMutation()
+    console.log(data)
   return (
-    <div style={{display: "flex"}}>
+    <div style={{display: "flex", justifyContent: "space-evenly"}}>
+    <div style={{display: "flex", flexDirection: "column"}}>
     {data?.map((e) => (
-        <Link to={`${e.id}`} style={{color: "white"}}><article className="post" key={e.id}>
-            <h2>{e.title}</h2>
-            <p>{e.description}</p>
-            <div>Автор: {e.author}</div>
-            <div>{e.comments.length} комментариев</div>
-            <data>{e.data} ms</data>
-        </article></Link>
+        <article className="post-card" key={e.id}>
+            <Link to={`/posts/${e.id}`} style={{color: "black"}}><h2 className="title">{e.title}</h2></Link>
+            <p>{e.content}</p>
+            <div style={{marginTop: "20px"}}>Автор: {e.author}</div>
+            <div>{e.commentsCount} комментариев</div>
+            <data className="date">{e.createdAt}</data>
+            {e.author === user?.username ? <button onClick={() => deletePost(e.id)}>Удалить пост</button> : <></>}
+        </article>
     ))}
-    <div style={{marginTop: "20px"}}>
-      <Link to="/"><button>Добавить пост</button></Link>
+    </div>
+    <div className="sidebar">
+      <Link to="/posts/create"><button>Добавить пост</button></Link>
     </div>
     </div>
   )

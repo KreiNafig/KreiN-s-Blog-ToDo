@@ -1,31 +1,52 @@
 import React from 'react'
 import "./todo.css"
+import { useCreateTodoMutation, useDeleteTodoMutation, useGetTodosQuery, useUpdateTodoMutation } from '../../api/todoApi'
+import {useValidation} from '../../hooks/useValidation'
 
 export const TodoComp = () => {
-    const array = [{
-        id: 1,
-        title: 'title',
-        text: 'text',
-    }, {
-        id: 2,
-        title: 'zagolovok2',
-        text: 'text2'
-    }]
+    const {data} = useGetTodosQuery()
+    const title = useValidation()
+    const text = useValidation()
+    const [createTodo] = useCreateTodoMutation()
+    const [deleteTodo] = useDeleteTodoMutation()
+    const [updateTodo] = useUpdateTodoMutation()
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        const obj = {
+            title: title.value,
+            text: text.value
+        }
+        createTodo(obj)
+    }
+
+
+    console.log(data)
   return (
-    <div className="todoList">
-    <div>{array.map((e) => (
-        <div style={{position: "relative"}} className="todo" key={e.id}>
-            <h2>{e.title}</h2>
-            <p>{e.text}</p>
+    <div className="todo">
+    <div>{data?.length === 0 ? <div className="todo-card">Нет задач</div> : data?.map((e) => (
+        <div style={{position: "relative"}} className="todo-card" key={e.id}>
+            <h1 className={e.completed === 0 ? "todo-title" : "todo-title completed"}>{e.title}</h1>
+            <p className={e.completed === 0 ? "todo-text" : "todo-text completed"}>{e.text}</p>
             <div style={{display: "flex", flexDirection: "column", position: "absolute", top: "5px", right: "5px"}}>
-            <button>delete</button>
-            <button>completed</button>
+            <div className="todo-actions">
+            <button onClick={() => deleteTodo(e.id)}>delete</button>
+            {e.completed === 1
+            ? <button onClick={() => updateTodo({id: e.id, completed: e.completed - 1})}>Отмена</button>
+            : <button onClick={() => updateTodo({id: e.id, completed: e.completed + 1})}>Выполнить</button>
+            }
+            </div>
             </div>
         </div>
     ))}</div>
     <div className="aside__todo">
-        fda
-        fasd
+        <form onSubmit={(e) => handleSubmit(e)}>
+            <input placeholder='Введите заголовок' name="title" value={title.value} onChange={title.onChange} onBlur={title.onBlur} />
+            {(title.dirty && title.error) && <div style={{color: 'red'}}>{title.errorMessage}</div>}
+            <input placeholder='Введите текст' name="text" value={text.value} onChange={text.onChange} onBlur={text.onBlur} />
+            {(text.dirty && text.error) && <div style={{color: 'red'}}>{text.errorMessage}</div>}
+            <button type="submit">Добавить задачу</button>
+        </form>
     </div>
     </div>
   )

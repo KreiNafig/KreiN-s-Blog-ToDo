@@ -30,3 +30,140 @@ a:hover{text-decoration: none;}
 ul li{list-style-type: none;}
 img{vertical-align: top;}
 h1,h2, h3, h4, h5, h6{font-style: inherit; font-weight: 400;}
+
+body {
+	width: 100vw;
+	height: 100vh;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  color: #f0f6fc;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.card {
+  background-color: #161b22;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+  background-color: #1c2128;
+  border-color: rgba(240, 246, 252, 0.3);
+}
+
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.error-page h1 {
+  font-size: 48px;
+  color: #f85149;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 16px;
+  color: #c9d1d9;
+  margin-bottom: 15px;
+}
+
+.error-page a {
+  color: #58a6ff;
+  font-weight: 600;
+}
+
+
+
+
+
+@media (max-width: 1024px) {
+  .todo {
+    flex-direction: column;
+  }
+  .aside__todo {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .profile-container {
+    flex-direction: column;
+  }
+  .profile-sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .profile-posts {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    padding: 10px;
+  }
+  .sidebar {
+    display: none;
+  }
+  .profile img {
+    width: 100px;
+    height: 100px;
+  }
+  input,
+  button,
+  textarea {
+    width: 100%;
+    font-size: 14px;
+  }
+  .todo-card {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, h2, h3 {
+    font-size: 18px;
+  }
+  .post-card {
+    max-width: 100%;
+    margin: 0 5px 15px;
+  }
+  .profile {
+    padding: 10px;
+  }
+  .profile img {
+    width: 80px;
+    height: 80px;
+  }
+  .profile .info {
+    font-size: 12px;
+  }
+}

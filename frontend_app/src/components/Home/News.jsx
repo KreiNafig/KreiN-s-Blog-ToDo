@@ -5,20 +5,20 @@ export const News = () => {
     const date = new Date()
   return (
      <>
-        <section className="news">
+        <section>
             <header><h1 style={{color: "white"}}>Новости сайта:</h1></header>
-            <section>
-                <article>
+            <section className="news-grid">
+                <article className="news-card">
                     <h3>*****</h3>
                     <p>*****</p>
                     <p>{date.getFullYear()} год</p>
                 </article>
-                <article>
+                <article className="news-card">
                     <h3>*****</h3>
                     <p>*****</p>
                     <p>{date.getFullYear()} год</p>
                 </article>
-                <article>
+                <article className="news-card">
                     <h3>*****</h3>
                     <p>*****</p>
                     <p>{date.getFullYear()} год</p>

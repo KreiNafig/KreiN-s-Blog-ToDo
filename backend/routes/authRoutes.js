@@ -16,12 +16,21 @@ router.post("/register", async (req, res) => {
       [username, email, hashedPassword]
     );
 
-    res.json({ message: "User registered!" });
+    const user = await db.get("SELECT id, username, email FROM users WHERE email = ?", [email]);
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username, email: user.email },
+      "secret",
+      { expiresIn: "1h" }
+    );
+
+    res.json({ message: "User registered!", token, user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "User already exists or DB error" });
   }
 });
+
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -38,21 +47,35 @@ router.post("/login", async (req, res) => {
   res.json({ message: "Login successful", token });
 });
 
-router.get("/me", async (req, res) => {
+
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ error: "No token" });
+
+  const token = authHeader.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "No token" });
+
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(401).json({ error: "No token" });
-
-    const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, "secret");
+    req.userId = decoded.id;
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid token" });
+  }
+}
 
-    const user = await db.get("SELECT id, username, email FROM users WHERE id = ?", [decoded.id]);
+
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await db.get("SELECT id, username, email FROM users WHERE id = ?", [req.userId]);
     if (!user) return res.status(404).json({ error: "User not found" });
 
     res.json(user);
   } catch (err) {
-    res.status(401).json({ error: "Invalid token" });
+    console.error(err);
+    res.status(500).json({ error: "DB error" });
   }
 });
+
 
 export default router;

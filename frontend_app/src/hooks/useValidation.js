@@ -15,6 +15,14 @@ export const useValidation = (initialState) => {
             setErrorMessage(validate(value, {isName: true, required: true}))
         } else if(name === 'checking') {
             setErrorMessage(validate(value, {isCheck: true, required: true}))
+        } else if(name === 'title') {
+          setErrorMessage(validate(value, {isTitle: true, required: true, maxLength: 16, minLength: 3}))
+        } else if(name === 'text') {
+          setErrorMessage(validate(value, {isText: true, required: true, minLength: 3}))
+        } else if(name === 'comment') {
+          setErrorMessage(validate(value, {isComment: true, required: true}))
+        } else if(name === 'commentUpdate') {
+            setErrorMessage(validate(value, ({isCommentUpdate: true, required: true})))
         }
     }
 
@@ -48,6 +56,21 @@ export const useValidation = (initialState) => {
         return 'Указан некоректный email'
        }
 
+       if(rules.isTitle && value.length > rules.maxLength) {
+        setError(true)
+        return 'Объем символов не должен быть больше 16 символов'
+       }
+
+       if(rules.isTitle && value.length < rules.minLength) {
+        setError(true)
+        return 'Объем символов не должен быть меньше 3 символов'
+       }
+
+       if(rules.isText && value.length < rules.minLength) {
+        setError(true)
+        return 'Объем символов не должен быть меньше 3 символов'
+       }
+
        if(rules.isPassword && value.length < rules.minLenght) {
         setError(true)
         return `Длина пароля должна быть минимум ${rules.minLenght} ${rules.minLenght >= 5 ? 'символов' : 'символа'}`
@@ -73,6 +96,10 @@ export const useValidation = (initialState) => {
        }
     }
 
+    const setValueForce = (newValue) => {
+        setValue(newValue);
+    };
+
     const reset = () => {
         setValue(initialState)
         setDirty(false)
@@ -80,5 +107,5 @@ export const useValidation = (initialState) => {
         setErrorMessage('Поле не должно быть пустым')
     }
 
-    return {value, dirty, onChange, onBlur, error, errorMessage, reset}
+    return {value, dirty, onChange, onBlur, error, errorMessage, reset, setValueForce}
 }

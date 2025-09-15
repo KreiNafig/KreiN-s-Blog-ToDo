@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
         <Header />
-        <main style={{width: "83vw", margin: "0 auto"}}>
+        <main className="container">
           <Outlet />
         </main>
     </div>
