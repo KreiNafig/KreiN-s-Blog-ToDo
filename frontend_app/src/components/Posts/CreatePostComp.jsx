@@ -3,6 +3,7 @@ import { useCreatePostMutation } from '../../api/postApi'
 import { useAuthMeQuery } from '../../api/authApi'
 import { useNavigate } from 'react-router'
 import { useValidation } from '../../hooks/useValidation'
+import { useFormSubmit } from '../../hooks/useFormSubmit'
 
 export const CreatePostComp = () => {
     const {data} = useAuthMeQuery()
@@ -20,22 +21,16 @@ export const CreatePostComp = () => {
           }
         }, [title.errorMessage, text.errorMessage])
 
-    function handleSubmit(e) {
-        e.preventDefault()
 
-        if(title.errorMessage || text.errorMessage) {
-          alert('Ошибка в форме')
-          return
-        }
-
-        const dataPost = {
+        const handleSubmit = useFormSubmit(() => title.errorMessage || text.errorMessage, () => {
+            const dataPost = {
             title: title.value,
             content: text.value,
-            authorId: data.id,
+            authorId: data?.id,
         }
         createPost(dataPost)
         navigate('/posts')
-    }
+        })
 
   return (
     <div className="create-post">

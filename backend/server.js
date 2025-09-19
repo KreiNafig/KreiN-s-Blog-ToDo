@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js"
+import usersListRoutes from "./routes/usersList.js";
 
 const app = express();
 
@@ -15,12 +16,16 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("API is working 🚀");
 });
+
+
 app.use("/uploads", express.static("uploads"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/todo", todoRoutes);
-app.use("/api/profile", profileRoutes)
+app.use("/api/profile", profileRoutes);
+app.use("/users", usersListRoutes);
+
 
 
 app.listen(4000, () => {

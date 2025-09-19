@@ -3,7 +3,6 @@ import { useGetProfileQuery, useUpdateProfileMutation } from '../../api/profileA
 import { useAuthMeQuery } from '../../api/authApi'
 import { Link } from 'react-router-dom'
 import { useValidation } from '../../hooks/useValidation'
-import './profile.css'
 
 export const ProfileComp = () => {
     const {data: user} = useAuthMeQuery()
@@ -11,24 +10,23 @@ export const ProfileComp = () => {
     const [updateProfile] = useUpdateProfileMutation()
     const file = useRef(null)
     const text = useValidation()
-    const [asd, setAsd] = useState(false)
-    console.log(data)
+    const [edit, setEdit] = useState(false)
+
     function handleSubmit(e) {
         e.preventDefault()
-
         const obj = {
             bio: text.value || null,
             avatar: file.current.files[0] || null,
         }
-
         updateProfile(obj)
+        setEdit(false)
     }
-    console.log(file)
+
   return (
     <div className="profile-container">
   <div className="profile-sidebar">
     <h2>{data?.username}</h2>
-    {asd ? (
+    {edit ? (
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label htmlFor="avatar">Изменить аватар</label>
@@ -52,23 +50,25 @@ export const ProfileComp = () => {
       </form>
     ) : (
       <>
-        {data?.avatar === null ? (
-          "Picture is not"
-        ) : (
-          <img src={`http://localhost:4000${data?.avatar}`} alt="avatar" />
-        )}
-        <p className="bio">
+        <img 
+          src={data?.avatar.startsWith('/upload') ? `http://localhost:4000${data.avatar}` 
+          : "https://i.pinimg.com/736x/8b/26/40/8b264036d4817515a2d60043f3ae9643.jpg"} 
+          alt="avatar"
+        />
+        <div className="bio">
+          <div style={{margin: "5px 0px"}}>Описание:</div>
           {data?.bio === null
             ? "У пользователя отсутствует описание"
             : data?.bio}
-        </p>
-        <p className="email">Почта: {data?.email}</p>
+        </div>
+        <button style={{margin: "20px 0px"}} onClick={() => setEdit(true)}>Редактировать профиль</button>
       </>
     )}
+    <p className="email">Почта: {data?.email}</p>
   </div>
   <div className="profile-posts">
     <h2>Посты пользователя:</h2>
-    {data?.posts.map((e) => (
+    {data?.posts?.length === 0 ? <div className="post-card">У пользователя нет постов</div> :data?.posts.map((e) => (
       <article className="post-card" key={e.id}>
         <Link to={`/posts/${e.id}`} style={{ color: "black" }}>
           <h2 className="title">{e.title}</h2>

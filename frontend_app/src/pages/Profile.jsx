@@ -1,10 +1,12 @@
 import React from 'react'
 import { ProfileComp } from '../components/Profile/ProfileComp'
 
-export const Profile = () => {
+const Profile = () => {
   return (
     <>
         <ProfileComp />
     </>
   )
 }
+
+export default Profile

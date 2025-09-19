@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
 import {postsApi} from '../api/postApi'
 import { authApi } from "../api/authApi"
-import authSlice from '../api/authSlice'
+import authReducer from '../api/authSlice'
 import { todoApi } from "../api/todoApi"
 import { profileApi } from "../api/profileApi"
+import { usersApi } from "../api/usersApi"
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,13 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [todoApi.reducerPath]: todoApi.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
-        authSlice,
+        [usersApi.reducerPath]: usersApi.reducer,
+        authSlice: authReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(postsApi.middleware).concat(authApi.middleware).concat(todoApi.middleware).concat(profileApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(postsApi.middleware)
+    .concat(authApi.middleware)
+    .concat(todoApi.middleware)
+    .concat(profileApi.middleware)
+    .concat(usersApi.middleware)
 })

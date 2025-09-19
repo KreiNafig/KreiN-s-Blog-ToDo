@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useValidation } from '../../hooks/useValidation'
 import { useGetPostQuery, useUpdatePostMutation } from '../../api/postApi'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useFormSubmit } from '../../hooks/useFormSubmit'
 
 export const UpdatePostComp = () => {
     const {id: num} = useParams()
@@ -27,21 +28,15 @@ export const UpdatePostComp = () => {
           }
         }, [title.errorMessage, text.errorMessage])
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        if(title.errorMessage || text.errorMessage) {
-          alert('Ошибка в форме')
-          return
-        }
-    const obj = {
+      const handleSubmit = useFormSubmit(() => title.errorMessage || text.errorMessage, () => {
+          const obj = {
         title: title.value,
         content: text.value,
         id: num
     }
-
     updatePost(obj)
     navigate(-1)
-    }
+        })
     
 
   return (

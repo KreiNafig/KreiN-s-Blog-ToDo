@@ -6,7 +6,7 @@ const initialState = {
   user: null,
 };
 
-const authSlice = createSlice({
+const slice = createSlice({
   name: "authSlice",
   initialState,
   reducers: {
@@ -15,6 +15,9 @@ const authSlice = createSlice({
       state.user = null;
       localStorage.removeItem("token");
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -24,7 +27,6 @@ const authSlice = createSlice({
         localStorage.setItem("token", payload.token);
       }
     );
-
     builder.addMatcher(
       authApi.endpoints.registerUser.matchFulfilled,
       (state, { payload }) => {
@@ -32,7 +34,6 @@ const authSlice = createSlice({
         localStorage.setItem("token", payload.token);
       }
     );
-
     builder.addMatcher(
       authApi.endpoints.authMe.matchFulfilled,
       (state, { payload }) => {
@@ -42,5 +43,11 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { logout, setUser } = slice.actions;
+
+export const logoutAndReset = () => (dispatch) => {
+  dispatch(logout());
+  dispatch(authApi.util.resetApiState());
+};
+
+export default slice.reducer;

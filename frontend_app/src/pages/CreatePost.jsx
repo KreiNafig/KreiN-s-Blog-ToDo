@@ -1,10 +1,12 @@
 import React from 'react'
 import { CreatePostComp } from '../components/Posts/CreatePostComp'
 
-export const CreatePost = () => {
+const CreatePost = () => {
   return (
     <>
     <CreatePostComp />
     </>
   )
 }
+
+export default CreatePost

@@ -1,10 +1,12 @@
 import React from 'react'
 import { TodoComp } from '../components/Todo/TodoComp'
 
-export const Todo = () => {
+const Todo = () => {
   return (
     <>
     <TodoComp />
     </>
   )
 }
+
+export default Todo

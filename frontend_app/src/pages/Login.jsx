@@ -1,10 +1,12 @@
 import React from 'react'
 import { LoginComp } from '../components/Auth/LoginComp'
 
-export const Login = () => {
+const Login = () => {
   return (
     <>
       <LoginComp />
     </>
   )
 }
+
+export default Login

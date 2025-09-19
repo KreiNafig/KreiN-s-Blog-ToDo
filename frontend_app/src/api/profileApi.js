@@ -27,7 +27,6 @@ export const profileApi = createApi({
         if (data.avatar) {
             formData.append("avatar", data.avatar);
         }
-
             return {
                 url: "/me",
                 method: "PUT",
@@ -35,8 +34,11 @@ export const profileApi = createApi({
             };
         },
         invalidatesTags: ["Profile"],
-            })
+            }),
+        getUserProfile: builder.query({
+            query: (id) => `/${id}`
+        })
     })
 });
 
-export const {useGetProfileQuery, useUpdateProfileMutation} = profileApi
+export const {useGetProfileQuery, useUpdateProfileMutation, useGetUserProfileQuery} = profileApi

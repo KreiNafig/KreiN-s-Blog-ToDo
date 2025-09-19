@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import "./auth.css"
 import { useValidation } from '../../hooks/useValidation'
 import { useRegisterUserMutation } from '../../api/authApi'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router';
+
+import { saveToken } from '../../features/storage/localStorage';
+import { useFormSubmit } from '../../hooks/useFormSubmit';
 
 export const RegisteComp = () => {
   const [registerUser, {data, error}] = useRegisterUserMutation()
@@ -34,13 +36,8 @@ export const RegisteComp = () => {
         alert(data.message);
       }
     }, [data, navigate]);
-  
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(email.errorMessage || password.errorMessage) {
-        alert('Ошибка в форме')
-        return
-      }
+
+  const handleSubmit = useFormSubmit(() => email.errorMessage || password.errorMessage || login.errorMessage, () => {
     const obj = {
       username: login.value,
       email: email.value,
@@ -48,11 +45,8 @@ export const RegisteComp = () => {
     }
     registerUser(obj)
     navigate('/')
-  }
+  })
 
-  function saveToken(token) {
-        localStorage.setItem('token', token)
-      }
 
   return (
     <>
@@ -63,17 +57,17 @@ export const RegisteComp = () => {
           <div className="block__auth">
             <label htmlFor="login">Login</label>
             <input className="auth-input" type="text" id="login" name="login" value={login.value} onBlur={login.onBlur} onChange={login.onChange} />
-            {(login.dirty && login.error) && <div className="auth-error">{login.errorMessage}</div>}
+            {(login.dirty && login.error) && <div style={{color: 'red'}}>{login.errorMessage}</div>}
           </div>
           <div className="block__auth">
           <label htmlFor="email__auth">Email</label>
           <input className="auth-input" type="email" id="email__auth" name="email" value={email.value} onBlur={email.onBlur} onChange={email.onChange} />
-          {(email.dirty && email.error) && <div className="auth-error">{email.errorMessage}</div>}
+          {(email.dirty && email.error) && <div style={{color: 'red'}}>{email.errorMessage}</div>}
           </div>
           <div className="block__auth">
           <label htmlFor="password__auth">Password</label>
           <input className="auth-input" type="password" id="password__auth" name="password" value={password.value} onBlur={password.onBlur} onChange={password.onChange} />
-          {(password.dirty && password.error) && <div className="auth-error">{password.errorMessage}</div>}
+          {(password.dirty && password.error) && <div style={{color: 'red'}}>{password.errorMessage}</div>}
           </div>
           <button className="auth-button" disabled={validation} type="submit">Submit</button>
         </form>
