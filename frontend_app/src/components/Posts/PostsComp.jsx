@@ -46,7 +46,7 @@ export const PostsComp = () => {
     {(posts?.length > 0 ? posts : data)?.map((e) => (
         <article className="post-card" key={e.id}>
             <Link to={`/posts/${e.id}`} style={{color: "black"}}><h2 className="title">{e.title}</h2></Link>
-            <p>{e.content}</p>
+            <p className="post-text">{e.content.length > 59 ? `${e.content.slice(0, 60)}...` : e.content}</p>
             <div style={{marginTop: "20px"}}>Автор: {e.author}</div>
             <div>{e.commentsCount} комментариев</div>
             <data className="date">{e.createdAt}</data>
@@ -57,8 +57,8 @@ export const PostsComp = () => {
     <div className="sidebar">
       <h3>Добавить пост:</h3>
       <Link to="/posts/create"><button>Добавить</button></Link>
-      <h3 style={{marginTop: "30px"}}>Сортировка:</h3>
-      <div style={{display: "flex", justifyContent: "space-between"}}>
+      <h3 className="sort-posts" style={{marginTop: "30px"}}>Сортировка:</h3>
+      <div class="button-sidebar">
       <button onClick={() => setPosts(sortNewElement(posts))}>Новые</button>
       <button onClick={() => setPosts(sortOldElement(posts))}>Старые</button>
       </div>

@@ -114,8 +114,8 @@ button:hover {
 .post-card {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  min-width: 600px;
+  max-width: 650px;
+  min-width: 650px;
   margin: 0 auto 15px;
   background-color: #161b22;
   border: 1px solid rgba(240, 246, 252, 0.2);
@@ -366,6 +366,11 @@ button:hover {
   background-color: #2ea043;
 }
 
+.post-text {
+  margin-top: 10px;
+  overflow-wrap: break-word;
+}
+
 
 
 /*Heade css by krein*/
@@ -480,6 +485,12 @@ button:hover {
 }
 
 
+.header-news {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 
 
 /*Todo css by krein*/
@@ -528,6 +539,8 @@ button:hover {
   margin-top: 8px;
   font-size: 14px;
   color: #c9d1d9;
+  overflow-wrap: break-word;
+  width: 50%;
 }
 
 .todo-text.completed {
@@ -594,3 +607,200 @@ text-decoration: line-through;
   color: #c9d1d9;
 }
 
+
+.button-sidebar {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.button-sidebar button {
+  margin-bottom: 5px;
+}
+
+
+
+@media (max-width: 1024px) {
+  .post-card {
+    max-width: 100%;
+    min-width: 50vw;
+  }
+  .sidebar {
+    width: 30%;
+  }
+  .button-sidebar {
+    justify-content: flex-start;
+  }
+  .button-sidebar button:last-child {
+    margin-left: 10px;
+  }
+  
+
+  .todo {
+    grid-template-columns: 1fr;
+  }
+  .aside__todo {
+    margin-top: 20px;
+  }
+
+
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+  .profile-sidebar {
+    order: -1;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .post-card {
+    padding: 12px;
+  }
+  .post-card h3 {
+    font-size: 18px;
+  }
+  .post-input {
+    width: 100%;
+  }
+  .button-sidebar button:last-child {
+    margin-left: 0px;
+  }
+  .news-card {
+    min-width: auto;
+    max-width: 95%;
+  }
+
+  .sidebar {
+    font-size: 14px;
+  }
+  button,
+  .auth-button {
+    font-size: 14px;
+    padding: 8px 12px;
+    width: auto;
+  }
+
+  .header__head,
+  .header__head > nav > ul {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
+  .header__head > h2 {
+    padding: 10px 0;
+  }
+
+  .auth-card {
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+    .post-card button {
+    font-size: 2vw;
+  }
+
+  .profile-sidebar img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-card {
+    min-width: auto;
+    max-width: 100%;
+  }
+
+
+  .post-card {
+    padding: 10px;
+    min-height: 48vh;
+  }
+  .post-card h3 {
+    font-size: 16px;
+  }
+
+  .post-input {
+    width: 100%;
+  }
+
+  .sidebar {
+    font-size: 12px;
+    width: 60%;
+  }
+  .post-card data {
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .user-mini img {
+    width: 28px;
+    height: 28px;
+  }
+  .user-mini span {
+    font-size: 12px;
+  }
+
+  .comment-form input {
+    width: 38vw;
+  }
+
+  label[for="comment"] {
+    font-size: 0.8em;
+  }
+
+  .comment-form button {
+    width: 15vw;
+    font-size: 2vw;
+    padding: 2px 8px;
+  }
+
+  .todo-card {
+    padding: 12px;
+  }
+  .todo-title {
+    font-size: 16px;
+  }
+  .todo-text {
+    font-size: 13px;
+  }
+
+  .profile-sidebar {
+    padding: 15px;
+  }
+  .profile-sidebar img {
+    width: 90px;
+    height: 90px;
+  }
+  .profile-sidebar .bio,
+  .profile-sidebar .email {
+    font-size: 12px;
+  }
+
+  .post-card button {
+    bottom: 15%;
+    font-size: 3vw;
+  }
+
+  .auth-input {
+    font-size: 13px;
+    padding: 8px;
+  }
+  .auth-button {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  .button-comment-edit {
+    margin: 5px 2px;
+    width: 35vw;
+    font-size: 3vw;
+  }
+
+  .header-news .sidebar {
+    margin-top: 5px;
+    width: 100%;
+  }
+}

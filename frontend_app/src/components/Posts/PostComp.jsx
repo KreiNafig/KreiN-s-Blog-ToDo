@@ -60,7 +60,7 @@ export const PostComp = () => {
       <h1>{data?.title}</h1>
       <h5>{data?.author}</h5>
       <h6 className="date">{data?.createdAt}</h6>
-      <p style={{marginTop: "10px"}}>{data?.content}</p>
+      <p className="post-text">{data?.content}</p>
     </div>
     {data?.author === authMe?.username ? <Link to={`/posts/${data?.id}/update`} ><button>Редактировать пост</button></Link> : <></>}
     <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
@@ -84,10 +84,10 @@ export const PostComp = () => {
                 </form>
                 : <>
                     <p className="text">{e.text}</p>
-                    {authMe?.username === e.author ? <button onClick={() => setUpdateCommentUser(e.id)}>Изменить комментарий</button> : <></>}
+                    {authMe?.username === e.author ? <button className='button-comment-edit' onClick={() => setUpdateCommentUser(e.id)}>Изменить комментарий</button> : <></>}
                   </>
                 }
-            {authMe?.username === e.author ?<button style={{margin: "20px 10px"}} onClick={() => deleteComment({numPost: data.id, commentId: e.id})}>Удалить комментарий</button> : <></>}
+            {authMe?.username === e.author ?<button className='button-comment-edit' onClick={() => deleteComment({numPost: data.id, commentId: e.id})}>Удалить комментарий</button> : <></>}
         </div>))}
     </div>
     </>

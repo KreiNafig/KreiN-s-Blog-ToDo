@@ -9,7 +9,7 @@ export const News = () => {
   return (
      <>
         <header><h1 style={{color: "white"}}>Новости сайта:</h1></header>
-        <div style={{display: "flex", justifyContent: "space-between"}}>
+        <div className="header-news">
         <section>
             <section className="news-grid">
                 <article className="news-card">
