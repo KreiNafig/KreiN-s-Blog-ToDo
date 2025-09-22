@@ -54,6 +54,13 @@ export const PostComp = () => {
     setUpdateCommentUser(null)
   }
 
+  if(!data) return (
+    <div className="error-page">
+    <h1>Возникла ошибка!</h1>
+    <p>Данного поста не существует</p>
+    </div> 
+)
+
   return (
     <>
     <div className="card">
