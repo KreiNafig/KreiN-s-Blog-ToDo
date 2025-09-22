@@ -51,7 +51,7 @@ export const ProfileComp = () => {
     ) : (
       <>
         <img 
-          src={data?.avatar.startsWith('/upload') ? `http://localhost:4000${data.avatar}` 
+          src={data?.avatar?.startsWith('/upload') ? `http://localhost:4000${data?.avatar}` 
           : "https://i.pinimg.com/736x/8b/26/40/8b264036d4817515a2d60043f3ae9643.jpg"} 
           alt="avatar"
         />
