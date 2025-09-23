@@ -8,10 +8,6 @@ import todoRoutes from "./routes/todoRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js"
 import usersListRoutes from "./routes/usersList.js";
 
-import dotenv from "dotenv";
-dotenv.config();
-
-
 const app = express();
 
 app.use(cors());
